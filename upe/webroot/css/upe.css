@@ -1,0 +1,9 @@
+.disable{
+	visibility: hidden;
+}
+.enabled{
+	visibility: visible;
+}
+.navbar-color{
+	color: black;
+}

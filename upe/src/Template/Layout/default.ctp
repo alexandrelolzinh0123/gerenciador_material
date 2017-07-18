@@ -36,6 +36,7 @@ $loguser = $this->request->session ()->read ( 'Auth.User' );
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
+    <?= $this->Html->css('upe.css') ?>
    <!--  <?= $this->Html->css('bootstrap.css')?>
     <?= $this->Html->css('bootstrap.min.css')?>
     <?= $this->Html->css('font-awesome.css')?>
@@ -46,7 +47,7 @@ $loguser = $this->request->session ()->read ( 'Auth.User' );
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <nav class="top-bar expanded" data-topbar role="navigation">
+    <nav class="top-bar expanded navbar-color" data-topbar role="navigation">
         <ul class="title-area large-3 medium-4 columns">
             <li class="name">
                 <h1><a href=""><?= $this->fetch('title') ?></a></h1>
@@ -54,7 +55,16 @@ $loguser = $this->request->session ()->read ( 'Auth.User' );
         </ul>
         <div class="top-bar-section">
             <ul class="right">
-                <li><a href="">Bem Vindo<?="\n".$loguser ['nome'] ?></a></li>
+                <?php if (!$loguser): ?>
+                <li> 
+                    <?= $this->Html->link(__('Cadastre-Se'), ['controller' => 'Users', 'action' => 'add']) ?>
+                </li>
+                <?php endif ?>
+                <?php if ($loguser): ?>
+                <li> 
+                    <?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']) ?>
+                </li>
+                <?php endif ?>
                 <!-- <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li> -->
             </ul>
         </div>
