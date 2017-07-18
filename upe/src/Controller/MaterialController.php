@@ -80,11 +80,11 @@ class MaterialController extends AppController
 
             $material->user_id = $this->Auth->user('id');
             if ($this->Material->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
+                $this->Flash->success(__('Material salvo com sucesso'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The material could not be saved. Please, try again.'));
+            $this->Flash->error(__('material não pode ser salvo'));
         }
         $users = $this->Material->Users->find('list', ['limit' => 200]);
         $files = $this->Material->Files->find('list', ['limit' => 200]);
@@ -107,11 +107,11 @@ class MaterialController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $material = $this->Material->patchEntity($material, $this->request->getData());
             if ($this->Material->save($material)) {
-                $this->Flash->success(__('The material has been saved.'));
+                $this->Flash->success(__('Material salvo com sucesso'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The material could not be saved. Please, try again.'));
+            $this->Flash->error(__('material não pode ser salvo.'));
         }
         $users = $this->Material->Users->find('list', ['limit' => 200]);
         $files = $this->Material->Files->find('list', ['limit' => 200]);
@@ -131,11 +131,40 @@ class MaterialController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $material = $this->Material->get($id);
         if ($this->Material->delete($material)) {
-            $this->Flash->success(__('The material has been deleted.'));
+            $this->Flash->success(__('Material deletado com sucesso'));
         } else {
-            $this->Flash->error(__('The material could not be deleted. Please, try again.'));
+            $this->Flash->error(__('material não pode ser deletado.'));
         }
 
         return $this->redirect(['action' => 'index']);
     }
+
+
+    public function isAuthorized($user)
+    {
+    if (isset($user['role']) && $user['role'] === 'Professor') {
+        
+    // Todos os usuários registrados podem adicionar artigos
+        if ($this->request->getParam('action') === 'add') {
+        return true;
+        }
+    }else{
+        $this->Flash->error(__('Apenas professores podem cadastrar assuntos'));
+    }
+
+    //todos os usuários registrados podem ver artigos
+        if ($this->request->getParam('action') === 'view') {
+        return true;
+        }
+    // Apenas o proprietário do artigo pode editar e excluí
+    if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+        $materialId = (int)$this->request->getParam('pass.0');
+        if ($this->Material->isOwnedBy($materialId, $user['id'])) {
+            return true;
+        }
+    }
+
+    return parent::isAuthorized($user);
+}
+
 }

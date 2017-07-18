@@ -7,15 +7,15 @@
 <nav class="large-3 medium-4 columns" id="actions-sidebar">
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Material'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('Adicionar Material'), ['action' => 'add']) ?></li>
+        <!-- <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li> -->
+        <!-- <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Files'), ['controller' => 'Files', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New File'), ['controller' => 'Files', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('New File'), ['controller' => 'Files', 'action' => 'add']) ?></li> -->
     </ul>
 </nav>
 <div class="material index large-9 medium-8 columns content">
-    <h3><?= __('Material') ?></h3>
+    <h3 align="center"><?= __('Materiais Disponibilizados') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -32,7 +32,7 @@
             <?php foreach ($material as $material): ?>
             <tr>
                 <td><?= h($material->data) ?></td>
-                <td><?= $material->user->nome ?></td>
+                <td> <?= $material->user->nome ?></td>
                 <td>
                 <a href="<?= $material->file->path.$material->file->name ?>" ><?= $material->file->name ?></a>
                 </td>

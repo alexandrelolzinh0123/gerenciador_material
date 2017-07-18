@@ -15,6 +15,14 @@
 
 $cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
+<?php 
+$loguser = $this->request->session ()->read ( 'Auth.User' );
+
+// echo $loguser ['nome'];
+
+// echo $loguser ['username'];
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +36,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <?= $this->Html->css('base.css') ?>
     <?= $this->Html->css('cake.css') ?>
+   <!--  <?= $this->Html->css('bootstrap.css')?>
+    <?= $this->Html->css('bootstrap.min.css')?>
+    <?= $this->Html->css('font-awesome.css')?>
+    <?= $this->Html->css('font-awesome.min.css')?> -->
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -42,8 +54,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
         <div class="top-bar-section">
             <ul class="right">
-                <li><a target="_blank" href="http://book.cakephp.org/3.0/">Documentation</a></li>
-                <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li>
+                <li><a href="">Bem Vindo<?="\n".$loguser ['nome'] ?></a></li>
+                <!-- <li><a target="_blank" href="http://api.cakephp.org/3.0/">API</a></li> -->
             </ul>
         </div>
     </nav>

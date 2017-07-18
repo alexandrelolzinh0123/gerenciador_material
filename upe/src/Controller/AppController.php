@@ -44,6 +44,7 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
+            'authorize' => ['Controller'],
             'loginRedirect' => [
                 'controller' => 'Material',
                 'action' => 'index'
@@ -84,6 +85,23 @@ class AppController extends Controller
     $this->Auth->allow(['index', 'view', 'display']);
 
     }
+
+    public function isAuthorized($user)
+    {
+
+        // Professor can access every action
+
+        if (isset($user['role']) && $user['role'] === 'Professor') {
+
+        return true;
+
+    }
+
+        // Default deny
+
+        return false;
+
+    }   
 
 
 }

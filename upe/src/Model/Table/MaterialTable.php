@@ -93,4 +93,9 @@ class MaterialTable extends Table
 
         return $rules;
     }
+
+    public function isOwnedBy($materialId, $userId)
+    {
+        return $this->exists(['id' => $materialId, 'user_id' => $userId]);
+    }
 }
